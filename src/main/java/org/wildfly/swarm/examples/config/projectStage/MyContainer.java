@@ -8,7 +8,8 @@ public class MyContainer {
   public static Container newContainer(String[] args) throws Exception {
     Container container = new Container(args);
 
-    System.err.println("Connection URL: " + container.stageConfig().resolve("database.connection.url").getValue());
+    String connectionUrl = container.stageConfig().resolve("database.connection.url").getValue();
+    System.err.println("Connection URL: " + connectionUrl);
 
     container.fraction(
         new DatasourcesFraction()
@@ -19,12 +20,7 @@ public class MyContainer {
             })
             .dataSource("ExampleDS", (ds) -> {
               ds.driverName("h2");
-              ds.connectionUrl(
-                  container
-                      .stageConfig()
-                      .resolve("database.connection.url")
-                      .getValue()
-              );
+              ds.connectionUrl(connectionUrl);
               ds.userName("sa");
               ds.password("sa");
             })
