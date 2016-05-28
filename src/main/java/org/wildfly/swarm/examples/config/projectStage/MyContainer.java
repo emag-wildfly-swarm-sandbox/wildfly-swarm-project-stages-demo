@@ -7,6 +7,8 @@ public class MyContainer {
 
   public static Container newContainer(String[] args) throws Exception {
     Container container = new Container(args);
+    // ofc, Arquillian tests work with explicit loading
+//    container.withStageConfig(Paths.get("/tmp", "external-project-stages.yml.save").toUri().toURL());
 
     String connectionUrl = container.stageConfig().resolve("database.connection.url").getValue();
     System.err.println("Connection URL: " + connectionUrl);
